@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Registre{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <h1>Registre national</h1>
+  <p class="lede">{{ registre|length }} résultat{{ 's' if registre|length != 1 }}{% if q %} pour « {{ q }} »{% endif %}</p>
+</div>
+
+<form class="card search-form" method="get" action="{{ url_for('registre_view') }}">
+  <input type="text" name="q" placeholder="Rechercher par nom, NIU ou NIN" value="{{ q }}">
+  <button type="submit" class="btn">Rechercher</button>
+</form>
+
+<div class="card table-card">
+  {% if registre %}
+  <table>
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>NIU</th>
+        <th>NIN</th>
+        <th>Enrôlé le</th>
+        <th>Statut</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in registre %}
+      <tr>
+        <td>{{ c.nom }} {{ c.prenom }}</td>
+        <td class="mono">{{ c.niu }}</td>
+        <td>{{ c.nin }}</td>
+        <td>{{ c.date_enrolement[:10] }}</td>
+        <td><span class="badge {{ 'badge-ok' if c.statut == 'ACTIF' else 'badge-danger' }}">{{ c.statut }}</span></td>
+        <td><a class="btn btn-small" href="{{ url_for('telecharger_carte', niu=c.niu) }}">Télécharger</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">Aucun citoyen enregistré{% if q %} pour cette recherche{% endif %}.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

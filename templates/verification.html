@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Vérification{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <h1>Vérifier une identité</h1>
+  <p class="lede">Vérification cryptographique 100% locale — aucune connexion internet requise.</p>
+</div>
+
+<form class="card form" method="post" action="{{ url_for('verification') }}" enctype="multipart/form-data">
+  <fieldset>
+    <legend>Source du credential</legend>
+    <label class="field">
+      <span>Fichier d'identité (.json)</span>
+      <input type="file" name="fichier" accept=".json">
+    </label>
+    <p class="muted small">Ou collez directement le jeton JWT :</p>
+    <label class="field">
+      <textarea name="jwt_colle" rows="3" placeholder="eyJhbGciOi..."></textarea>
+    </label>
+  </fieldset>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Vérifier</button>
+  </div>
+</form>
+
+{% if resultat %}
+  {% if resultat.valide %}
+    <div class="card result-card result-ok">
+      <div class="result-icon">✓</div>
+      <h2>Identité authentifiée</h2>
+      <p class="lede">Signature valide, non expirée, non révoquée — vérification 100% locale.</p>
+      <dl class="summary">
+        <dt>Nom</dt><dd>{{ resultat.sujet.lastName }} {{ resultat.sujet.firstName }}</dd>
+        <dt>Naissance</dt><dd>{{ resultat.sujet.birthDate }}</dd>
+        <dt>Ville</dt><dd>{{ resultat.sujet.city }}</dd>
+        <dt>CIN</dt><dd>{{ resultat.sujet.cin }}</dd>
+        {% if resultat.sujet.niu %}<dt>NIU</dt><dd class="mono">{{ resultat.sujet.niu }}</dd>{% endif %}
+        <dt>Credential</dt><dd class="mono small">{{ resultat.id }}</dd>
+      </dl>
+    </div>
+  {% else %}
+    <div class="card result-card result-danger">
+      <div class="result-icon">✗</div>
+      <h2>Échec de la vérification</h2>
+      <p class="lede">{{ resultat.erreur }}</p>
+    </div>
+  {% endif %}
+{% endif %}
+
+{% endblock %}

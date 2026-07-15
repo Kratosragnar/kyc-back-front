@@ -1,0 +1,14 @@
+{
+  "did:key:zDnaeucWjmoRPfMQg8iVqLg1uC56iUQqVwR48VMAj9QioetrU": {
+    "kty": "EC",
+    "crv": "P-256",
+    "x": "sZaQNXK8a1S2BZ_2GkE0MiFfJfq-7gURrtkfr2y1eGk",
+    "y": "siBceR-qZ55Snzu1e9M5DHbqItNuwbczCFgzRtn89xE"
+  },
+  "did:key:zDnaerBx8UayLkh8fMVbCiqpPv9v1bD9x9QP6kTnT9u3nWo9f": {
+    "kty": "EC",
+    "crv": "P-256",
+    "x": "frixR2ukBQ_7_oLeBBJUcE_MhfbwCOE-tOVcGVSIoQY",
+    "y": "1OA7ymdUwRF5B53_xZ4Qpl0056Vbt5ds9xy_aNpxfrM"
+  }
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Configuration requise</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<main class="page">
+  <div class="card setup-card">
+    <h1>Configuration requise</h1>
+    <p>Aucun fichier <code>config.json</code> n'a été trouvé. L'interface ne peut pas démarrer sans lui.</p>
+    <p>Depuis le dossier du projet, exécutez une fois :</p>
+    <pre>cp config.example.json config.json
+./setup.sh</pre>
+    <p>Puis rechargez cette page.</p>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}KYC Offline{% endblock %} — Guichet</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{{ url_for('index') }}">
+    <svg class="seal" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="2"/>
+      <circle cx="32" cy="32" r="24" fill="none" stroke="currentColor" stroke-width="1"/>
+      <path d="M32 16 L44 22 V32 C44 41 38 47 32 49 C26 47 20 41 20 32 V22 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M26 32 L30 37 L39 25" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="brand-text">
+      <strong>KYC OFFLINE</strong>
+      <small>Guichet d'identité vérifiable</small>
+    </span>
+  </a>
+  <nav class="mainnav">
+    <a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' }}">Tableau de bord</a>
+    <a href="{{ url_for('enrolement') }}" class="{{ 'active' if request.endpoint == 'enrolement' }}">Enrôlement</a>
+    <a href="{{ url_for('verification') }}" class="{{ 'active' if request.endpoint == 'verification' }}">Vérification</a>
+    <a href="{{ url_for('revocation') }}" class="{{ 'active' if request.endpoint == 'revocation' }}">Révocation</a>
+    <a href="{{ url_for('registre_view') }}" class="{{ 'active' if request.endpoint == 'registre_view' }}">Registre</a>
+  </nav>
+</header>
+
+<main class="page">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-stack">
+        {% for category, message in messages %}
+          <div class="flash flash-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <span>Système KYC hors-ligne — les identités restent vérifiables sans connexion internet.</span>
+</footer>
+</body>
+</html>

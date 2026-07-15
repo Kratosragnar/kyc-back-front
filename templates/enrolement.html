@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Enrôlement{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <h1>Enrôlement d'un citoyen</h1>
+  <p class="lede">Saisissez les informations civiles, confirmez la capture biométrique, puis validez pour émettre l'identité vérifiable.</p>
+</div>
+
+<form class="card form" method="post" action="{{ url_for('enrolement') }}">
+
+  <fieldset>
+    <legend>Données civiles</legend>
+    <div class="field-grid">
+      <label class="field">
+        <span>Prénom *</span>
+        <input type="text" name="prenom" value="{{ valeurs.get('prenom','') }}" required
+               class="{{ 'field-error' if 'prenom' in erreurs }}">
+      </label>
+      <label class="field">
+        <span>Nom *</span>
+        <input type="text" name="nom" value="{{ valeurs.get('nom','') }}" required
+               class="{{ 'field-error' if 'nom' in erreurs }}">
+      </label>
+      <label class="field">
+        <span>NIN (numéro d'identification national) *</span>
+        <input type="text" name="nin" value="{{ valeurs.get('nin','') }}" required
+               class="{{ 'field-error' if 'nin' in erreurs }}">
+      </label>
+      <label class="field">
+        <span>Date de naissance *</span>
+        <input type="text" name="date_naissance" placeholder="JJ/MM/AAAA" value="{{ valeurs.get('date_naissance','') }}" required
+               class="{{ 'field-error' if 'date_naissance' in erreurs }}">
+      </label>
+      <label class="field">
+        <span>Lieu de naissance</span>
+        <input type="text" name="lieu_naissance" value="{{ valeurs.get('lieu_naissance','') }}">
+      </label>
+      <label class="field">
+        <span>Nationalité</span>
+        <input type="text" name="nationalite" value="{{ valeurs.get('nationalite','') }}">
+      </label>
+      <label class="field">
+        <span>Genre</span>
+        <select name="genre">
+          <option value="M" {{ 'selected' if valeurs.get('genre') == 'M' }}>M</option>
+          <option value="F" {{ 'selected' if valeurs.get('genre') == 'F' }}>F</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Profession</span>
+        <input type="text" name="profession" value="{{ valeurs.get('profession','') }}">
+      </label>
+      <label class="field">
+        <span>Père</span>
+        <input type="text" name="pere" value="{{ valeurs.get('pere','') }}">
+      </label>
+      <label class="field">
+        <span>Mère</span>
+        <input type="text" name="mere" value="{{ valeurs.get('mere','') }}">
+      </label>
+      <label class="field field-wide">
+        <span>Adresse</span>
+        <input type="text" name="adresse" value="{{ valeurs.get('adresse','') }}">
+      </label>
+      <label class="field">
+        <span>Document présenté</span>
+        <input type="text" name="document" placeholder="ex. Carte nationale" value="{{ valeurs.get('document','') }}">
+      </label>
+      <label class="field">
+        <span>N° du document</span>
+        <input type="text" name="num_document" value="{{ valeurs.get('num_document','') }}">
+      </label>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Capture biométrique</legend>
+    <p class="muted">Positionnez le citoyen pour la photo et l'empreinte digitale avant de continuer.</p>
+    <label class="checkbox {{ 'field-error' if 'biometrie_confirmee' in erreurs }}">
+      <input type="checkbox" name="biometrie_confirmee">
+      <span>Photo et empreinte digitale capturées</span>
+    </label>
+  </fieldset>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Valider et émettre l'identité</button>
+  </div>
+</form>
+
+{% endblock %}

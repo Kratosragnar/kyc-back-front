@@ -1,0 +1,6 @@
+{
+  "presentationRequest": "openid4vp://authorize?response_type=vp_token&client_id=http%3A%2F%2Fcaddy%3A7003%2Fopenid4vc%2Fverify&response_mode=direct_post&state=cLiREN3e4qEC&presentation_definition_uri=http%3A%2F%2Fcaddy%3A7003%2Fopenid4vc%2Fpd%2FcLiREN3e4qEC&client_id_scheme=redirect_uri&client_metadata=%7B%22authorization_encrypted_response_alg%22%3A%22ECDH-ES%22%2C%22authorization_encrypted_response_enc%22%3A%22A256GCM%22%7D&nonce=7b595587-e376-4297-85aa-57a728e05557&response_uri=http%3A%2F%2Fcaddy%3A7003%2Fopenid4vc%2Fverify%2FcLiREN3e4qEC",
+  "selectedCredentials": [
+    "urn:uuid:d118b161-1898-4b4b-9bdf-449b5ddc13ee"
+  ]
+}

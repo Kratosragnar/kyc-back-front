@@ -1,0 +1,14 @@
+{
+  "issuerKey": {
+    "type": "jwk",
+    "jwk": {
+      "kty": "EC",
+      "d": "631llsyqVb_qIpvouApbYgYbenlZie_IGQ9UI2fktzc",
+      "crv": "P-256",
+      "kid": "KRaNdqjwWFMqHlobOGUOXd5Uq4we-jv-ow8TkswfOUw",
+      "x": "frixR2ukBQ_7_oLeBBJUcE_MhfbwCOE-tOVcGVSIoQY",
+      "y": "1OA7ymdUwRF5B53_xZ4Qpl0056Vbt5ds9xy_aNpxfrM"
+    }
+  },
+  "issuerDid": "did:key:zDnaerBx8UayLkh8fMVbCiqpPv9v1bD9x9QP6kTnT9u3nWo9f"
+}

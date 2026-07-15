@@ -1,0 +1,11 @@
+services:
+  kyc-web:
+    build: .
+    container_name: kyc-offline-web
+    ports:
+      - "5000:5000"
+    environment:
+      - WALLET_BASE_URL=http://host.docker.internal:7001
+      - ISSUER_BASE_URL=http://host.docker.internal:7002
+      - VERIFIER_BASE_URL=http://host.docker.internal:7003
+    restart: unless-stopped

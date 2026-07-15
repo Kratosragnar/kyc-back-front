@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Tableau de bord{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <h1>Tableau de bord</h1>
+  <p class="lede">Vue d'ensemble du guichet — enrôlements, révocations et disponibilité des services.</p>
+</div>
+
+<section class="grid stats-grid">
+  <div class="card stat">
+    <span class="stat-value">{{ stats.total }}</span>
+    <span class="stat-label">Identités enregistrées</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-value stat-ok">{{ stats.actifs }}</span>
+    <span class="stat-label">Actives</span>
+  </div>
+  <div class="card stat">
+    <span class="stat-value stat-danger">{{ stats.revoques }}</span>
+    <span class="stat-label">Révoquées</span>
+  </div>
+</section>
+
+<section class="grid two-col">
+  <div class="card">
+    <h2>Actions rapides</h2>
+    <div class="quick-actions">
+      <a class="btn btn-primary" href="{{ url_for('enrolement') }}">Nouvel enrôlement</a>
+      <a class="btn" href="{{ url_for('verification') }}">Vérifier une identité</a>
+      <a class="btn" href="{{ url_for('registre_view') }}">Consulter le registre</a>
+    </div>
+    {% if stats.dernier %}
+    <p class="muted small">Dernier enrôlement : <strong>{{ stats.dernier.prenom }} {{ stats.dernier.nom }}</strong>
+      ({{ stats.dernier.date_enrolement[:10] }})</p>
+    {% endif %}
+  </div>
+
+  <div class="card">
+    <h2>État des services</h2>
+    <ul class="status-list">
+      <li>
+        <span class="dot {{ 'dot-ok' if services.wallet else 'dot-off' }}"></span>
+        Portefeuille (wallet-api) — {{ 'opérationnel' if services.wallet else 'indisponible' }}
+      </li>
+      <li>
+        <span class="dot {{ 'dot-ok' if services.issuer else 'dot-off' }}"></span>
+        Émetteur (issuer-api) — {{ 'opérationnel' if services.issuer else 'indisponible' }}
+      </li>
+      <li>
+        <span class="dot {{ 'dot-ok' if services.verifier else 'dot-off' }}"></span>
+        Vérificateur (verifier-api) — {{ 'opérationnel' if services.verifier else 'indisponible' }}
+      </li>
+      <li>
+        <span class="dot {{ 'dot-ok' if issuer_ready else 'dot-off' }}"></span>
+        Autorité émettrice permanente — {{ 'configurée' if issuer_ready else 'non configurée' }}
+      </li>
+    </ul>
+    {% if not (services.wallet and services.issuer and services.verifier) %}
+      <p class="hint">Certains services sont hors-ligne : l'enrôlement et la vérification en ligne peuvent échouer.
+      La vérification hors-ligne (page « Vérification ») reste possible tant que les clés d'émetteur sont déjà synchronisées.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

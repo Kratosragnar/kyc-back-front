@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Enrôlement réussi{% endblock %}
+{% block content %}
+
+<div class="card result-card result-ok">
+  <div class="result-icon">✓</div>
+  <h1>Enrôlement réussi</h1>
+  <p class="lede">L'identité vérifiable de <strong>{{ citoyen.prenom }} {{ citoyen.nom }}</strong> a été émise.</p>
+
+  <dl class="summary">
+    <dt>NIU</dt><dd class="mono">{{ citoyen.niu }}</dd>
+    <dt>NIN</dt><dd>{{ citoyen.nin }}</dd>
+    <dt>Identifiant du credential</dt><dd class="mono small">{{ credential_id }}</dd>
+  </dl>
+
+  <div class="form-actions">
+    <a class="btn btn-primary" href="{{ url_for('telecharger_carte', niu=citoyen.niu) }}">Télécharger le fichier d'identité</a>
+    <a class="btn" href="{{ url_for('enrolement') }}">Nouvel enrôlement</a>
+    <a class="btn" href="{{ url_for('registre_view') }}">Voir le registre</a>
+  </div>
+  <p class="hint">Remettez le fichier téléchargé au citoyen (clé USB, wallet mobile, etc.). Il permettra une vérification hors-ligne, sans connexion internet.</p>
+</div>
+
+{% endblock %}

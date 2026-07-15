@@ -1,0 +1,9 @@
+state/cookies.txt
+state/last_credential.json
+state/registre_national.json
+state/revocation_list.json
+config.json
+output/cartes/*
+demo_*.json
+__pycache__/
+*.pyc

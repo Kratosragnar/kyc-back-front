@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Révocation{% endblock %}
+{% block content %}
+
+<div class="page-head">
+  <h1>Révoquer une identité</h1>
+  <p class="lede">À utiliser en cas de perte, de décès ou de demande administrative.</p>
+</div>
+
+<form class="card form" method="get" action="{{ url_for('revocation') }}">
+  <fieldset>
+    <legend>Rechercher un citoyen</legend>
+    <label class="field">
+      <span>NIU ou NIN</span>
+      <input type="text" name="recherche" value="{{ recherche }}" required>
+    </label>
+  </fieldset>
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary">Rechercher</button>
+  </div>
+</form>
+
+{% if cible %}
+  <div class="card">
+    <h2>Citoyen trouvé</h2>
+    <dl class="summary">
+      <dt>Nom</dt><dd>{{ cible.nom }} {{ cible.prenom }}</dd>
+      <dt>NIU</dt><dd class="mono">{{ cible.niu }}</dd>
+      <dt>NIN</dt><dd>{{ cible.nin }}</dd>
+      <dt>Statut</dt>
+      <dd><span class="badge {{ 'badge-ok' if cible.statut == 'ACTIF' else 'badge-danger' }}">{{ cible.statut }}</span></dd>
+    </dl>
+
+    {% if cible.statut == 'ACTIF' %}
+      <form class="form" method="post" action="{{ url_for('revocation') }}">
+        <input type="hidden" name="niu" value="{{ cible.niu }}">
+        <label class="field">
+          <span>Motif</span>
+          <select name="motif">
+            <option value="DEMANDE_ADMINISTRATIVE">Demande administrative</option>
+            <option value="PERTE">Perte du document</option>
+            <option value="VOL">Vol</option>
+            <option value="DECES">Décès</option>
+            <option value="ERREUR">Erreur d'enrôlement</option>
+          </select>
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="confirmer" required>
+          <span>Je confirme la révocation de cette identité</span>
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-danger">Révoquer définitivement</button>
+        </div>
+      </form>
+    {% else %}
+      <p class="hint">Cette identité est déjà révoquée{% if cible.date_revocation %} depuis le {{ cible.date_revocation[:10] }}{% endif %}.</p>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% endblock %}

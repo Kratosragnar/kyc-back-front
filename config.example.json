@@ -1,0 +1,11 @@
+{
+  "wallet_base_url": "http://localhost:7001",
+  "issuer_base_url": "http://localhost:7004",
+  "verifier_base_url": "http://localhost:7003",
+  "wallet_email": "agence@test.local",
+  "wallet_password": "Test1234!",
+  "wallet_id": null,
+  "did": null,
+  "credential_configuration_id": "IdentityCredential_jwt_vc_json",
+  "credential_type": "IdentityCredential"
+}
